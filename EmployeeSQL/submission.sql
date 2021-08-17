@@ -74,10 +74,42 @@ SELECT * FROM employee_salaries;
 
 -- 1. List the following details of each employee: employee number, last name, first name, sex, and salary.
 -- I use a join method for this to keep it simple
+-- I found that some of the data had repeat key numbers which is why I used the DISTINCT to avoid duplicates.
 
 SELECT DISTINCT e.employee_number, e.last_name, e.first_name, e.sex, s.salary
 FROM employees e
 JOIN employee_salaries s
 	ON e.employee_number = s.employee_number
 ORDER BY employee_number
+
+
+
+-- 2. List first name, last name, and hire date for employees who were hired in 1986
+-- This one seems a bit less complex than 1. I use a WHERE to filter by date.
+
+SELECT DISTINCT first_name, last_name, hire_date
+FROM employees 
+WHERE hire_date >= '1/1/1986' AND hire_date <= '12/31/1986'
+
+-- 3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
+-- Here we can do two joins at once. Very cool.
+
+SELECT DISTINCT d.department_number, d.department_name, m.employee_number, e.last_name, e.first_name
+FROM departments d
+JOIN department_manager m
+	ON d.department_number = m.department_number
+JOIN employees e
+	ON e.employee_number = m.employee_number
+
+-- 4. List the department of each employee with the following information: employee number, last name, first name, and department name.
+-- This one seems similar to the last one. Double join method should work fine for this as well.
+
+SELECT employee_number, last_name, first_name, department_name
+FROM employees e
+JOIN department_employees de
+	ON e.employee_number = de.employee_number
+JOIN 
+
+
+
 
